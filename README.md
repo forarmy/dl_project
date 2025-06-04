@@ -54,25 +54,62 @@
 
 ## IV. Evaluation & Analysis
 
-### ▶ 감성 분석 결과 (긍/부정 이진 분류)
-
-| 모델 | Accuracy | F1-score |
-|------|----------|----------|
-| BERT | **92.1%** | **91.8%** |
-
-### ▶ 별점 예측 결과 (5-class 분류)
-
-| 모델 | Accuracy | Macro F1 |
-|------|----------|----------|
-| BERT | **71.6%** | **70.9%** |
-
-### ▶ 추가 시각화
-
-- 감성 분포 그래프
-- confusion matrix (별점 예측)
-- 잘 맞춘/틀린 예시 리뷰 비교
+이 프로젝트에서는 BERT 모델을 활용하여 **Amazon 리뷰에 대한 감정 분류(긍/부정)**와 **별점 예측(1~5점)**이라는 두 가지 태스크를 수행했습니다.  
+훈련 성능 및 검증 성능의 지표로는 Loss, Accuracy, F1 Score를 활용하였으며 아래와 같이 시각화하여 분석하였습니다.
 
 ---
+
+### 📘 1. 감정 분류 (긍정 / 부정)
+
+`num_labels = 2`로 설정된 BERT 분류기를 이용해 긍정/부정 감정을 분류하였으며, 총 2 epoch 동안 fine-tuning을 수행했습니다.
+
+#### 🔹 Loss 추이 (Train vs Eval)
+
+![Train vs Eval Loss (Binary)](./images/binary_loss.png)
+
+- 에폭이 증가할수록 Train Loss와 Eval Loss가 모두 감소
+- 과적합 없이 안정적인 학습 흐름을 보여줌
+
+#### 🔹 Accuracy & F1 Score
+
+![Accuracy vs F1 (Binary)](./images/binary_score.png)
+
+- F1 Score와 Accuracy 모두 epoch 2에서 향상
+- 모델이 긍정/부정 분류 태스크에서 **균형잡힌 성능**을 발휘하고 있음
+
+---
+
+### ⭐ 2. 별점 예측 (1~5점)
+
+별점 태스크는 `num_labels = 5`로 설정된 다중 클래스 분류기로 학습되었으며, 샘플링된 데이터를 기준으로 2 epoch 동안 fine-tuning을 수행했습니다.
+
+#### 🔹 Loss 추이 (Train vs Eval)
+
+![Train vs Eval Loss (Rating)](./images/rating_loss.png)
+
+- epoch마다 Loss가 꾸준히 감소하며, 모델이 별점 예측 문제에도 잘 적응하고 있음을 확인
+
+#### 🔹 Accuracy & F1 Score
+
+![Accuracy vs F1 (Rating)](./images/rating_score.png)
+
+- F1 Score가 epoch 2에서 0.68까지 상승
+- **정확한 등급 분류보다는 유사 등급 간 혼동이 잦은 문제** 특성상, F1 기준 성능을 활용
+
+---
+
+### 📊 종합 요약
+
+| Task         | Epoch | Train Loss | Eval Loss | Accuracy | F1 Score |
+|--------------|-------|------------|-----------|----------|----------|
+| 감정 분류     | 2     | 0.36       | 0.34      | 0.84     | 0.83     |
+| 별점 예측     | 2     | 0.87       | 0.79      | 0.70     | 0.68     |
+
+---
+
+> ✅ 결론적으로, 감정 분류 태스크에서는 높은 정확도와 F1 점수를 확보하였고,  
+> 별점 예측 문제에서도 다중 클래스 분류로써 유의미한 성능을 확인할 수 있었습니다.
+
 
 ## V. Related Work
 
