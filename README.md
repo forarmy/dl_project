@@ -1,6 +1,15 @@
 # dl_project
 # 📝 Proposal: BERT를 활용한 Amazon 리뷰 감성 분석 및 별점 예측
 
+## 📑 Table of Contents
+
+- [I. Proposal](#i-proposal)
+- [II. Datasets](#ii-datasets)
+- [III. Methodology](#iii-methodology)
+- [IV. Evaluation & Analysis](#iv-evaluation--analysis)
+- [V. Related Work](#v-related-work-eg-existing-studies)
+- [VI. Conclusion](#vi-conclusion-discussion)
+
 ## I. Proposal
 
 ### ▶ Motivation
